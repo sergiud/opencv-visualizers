@@ -204,7 +204,7 @@ cv::Range {
 	children
 	(
 		#(
-			#([size] : $c.end * $c.start)
+			#([size] : $c.end - $c.start)
 		)
 	)
 }
