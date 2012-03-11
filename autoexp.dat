@@ -270,14 +270,20 @@ cv::Rect_<*> {
 	(
 		#(
 			"(",
-			[$c.x],
+			$c.x,
 			", ",
-			[$c.y],
+			$c.y,
 			", ",
-			[$c.width],
+			$c.x+$c.width,
 			", ",
-			[$c.height],
-			")"
+			$c.y+$c.height,
+			")",
+			" ",
+			"[",
+			$c.width,
+			"×",
+			$c.height,
+			"]"
 		)
 	)
 
