@@ -404,3 +404,5 @@ cv::AutoBuffer<*,*> {
 		)
 	)
 }
+
+; TODO: MatIterator, SparseMat, Exception, MatND, MatND_
