@@ -341,3 +341,32 @@ cv::Ptr<*> {
 		)
 	)
 }
+
+cv::AutoBuffer<*,*> {
+    preview
+	(
+		#(
+			"[",
+			$c.size,
+			"](",
+			#array
+			(
+				expr: $c.ptr[$i],
+				size: $c.size
+			),
+			")"
+		)
+	)
+
+    children
+    (
+		#(
+			#([size] : $c.size),
+			#array
+			(
+				expr: $c.ptr[$i],
+				size: $c.size
+			)
+		)
+    )
+}
