@@ -192,9 +192,11 @@ cv::Range {
 		#else
 		(
 			#(
+				"[",
 				$c.start,
-				"-",
-				$c.end
+				", ",
+				$c.end,
+				")"
 			)
 		)
 	)
