@@ -100,16 +100,16 @@ cv::Mat_<*> {
 	preview
 	(
 		#(
+			#($c.rows, "x", $c.cols), ; MxN
 			#if (!!$e.refcount)
 			(
 				#(
-					"[",
+					" [",
 					*$e.refcount,
 					#if (*$e.refcount == 1) (" ref") #else (" refs"),
 					"] "
 				)
-			),
-			#($c.rows, "x", $c.cols) ; MxN
+			)
 		)
 	)
 
@@ -117,9 +117,8 @@ cv::Mat_<*> {
 	(
 		#(
 			[continuous] : ($c.flags & 16384) == 16384,
-			[submatrix] : ($c.flags & 32678) == 32678,
-			[depth] : ($c.flags & 7),
-			[channels] : ((($c.flags & (511 << 3)) >> 3) + 1)
+			[submatrix] : ($c.flags & 32678) == 32678
+			; TODO: display elements
 		)
 	)
 }
@@ -229,11 +228,11 @@ cv::Size_<*> {
 	preview
 	(
 		#(
-			"(",
+			"",
 			[$c.width],
-			", ",
+			"x",
 			[$c.height],
-			")"
+			""
 		)
 	)
 
@@ -253,11 +252,11 @@ cv::RotatedRect {
 			[$c.center.x],
 			", ",
 			[$c.center.y],
-			"), (",
+			") ",
 			[$c.size.width],
-			", ",
+			"x",
 			[$c.size.height],
-			"), ",
+			" ",
 			[$c.angle],
 			"°"
 		)
