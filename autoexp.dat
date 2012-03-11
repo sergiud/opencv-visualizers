@@ -69,6 +69,33 @@ cv::Mat {
 	)
 }
 
+cv::Vec<*,*> {
+	preview
+	(
+		#(
+			"(",
+			#array
+			(
+				expr: $c.val[$i],
+				size: $T2
+			),
+			")"
+		)
+	)
+
+	children
+	(
+		#(
+			#([size] : $T2),
+			#array
+			(
+				expr: $c.val[$i],
+				size: $T2
+			)
+		)
+	)
+}
+
 cv::Mat_<*> {
 	preview
 	(
