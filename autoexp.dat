@@ -1,0 +1,343 @@
+; Copyright (c) 2012 Sergiu Dotenco
+;
+; Permission is hereby granted, free of charge, to any person obtaining a copy
+; of this software and associated documentation files (the "Software"), to deal
+; in the Software without restriction, including without limitation the rights
+; to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+; copies of the Software, and to permit persons to whom the Software is
+; furnished to do so, subject to the following conditions:
+;
+; The above copyright notice and this permission notice shall be included in
+; all copies or substantial portions of the Software.
+;
+; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+; THE SOFTWARE.
+
+[ExecutionControl]
+;syntax myfunctionname=NoStepInto
+
+[Visualizer]
+
+cv::Mat {
+    preview
+	(
+		#(
+			#($c.rows, "x", $c.cols), ; MxN
+			" (",
+			#switch ($c.flags & 7)
+			#case 0 ( #("8U" ) )
+			#case 1 ( #("8S" ) )
+			#case 2 ( #("16U" ) )
+			#case 3 ( #("16S" ) )
+			#case 4 ( #("32S" ) )
+			#case 5 ( #("32F" ) )
+			#case 6 ( #("64F" ) ),
+			")",
+			#if (!!$e.refcount)
+			(
+				#(
+					" [",
+					*$e.refcount,
+					#if (*$e.refcount == 1) (" ref") #else (" refs"),
+					"] "
+				)
+			)
+		)
+	)
+
+	children
+	(
+		#(
+			[continuous] : ($c.flags & 16384) == 16384,
+			[submatrix] : ($c.flags & 32678) == 32678,
+			[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
+
+			#if ($c.dims > 0)
+			(
+				#([element size] : $c.step.p[$c.dims-1])
+			)
+			#else
+			(
+				#([element size] : 0)
+			)
+		)
+    )
+}
+
+cv::Mat_<*> {
+    preview
+	(
+		#(
+			#if (!!$e.refcount)
+			(
+				#(
+					"[",
+					*$e.refcount,
+					#if (*$e.refcount == 1) (" ref") #else (" refs"),
+					"] "
+				)
+			),
+			#($c.rows, "x", $c.cols) ; MxN
+		)
+	)
+
+	children
+	(
+		#(
+			[continuous] : ($c.flags & 16384) == 16384,
+			[submatrix] : ($c.flags & 32678) == 32678,
+			[depth] : ($c.flags & 7),
+			[channels] : ((($c.flags & (511 << 3)) >> 3) + 1)
+		)
+    )
+}
+
+cv::Complex<*> {
+	preview
+	(
+        #if ($e.im == 0)
+		(
+            ; Purely real.
+            $e.re
+        )
+		#else
+		(
+            #if ($e.re == 0)
+			(
+                ; Purely imaginary.
+                #if ($e.im < 0)
+				(
+                    #("-i*", -$e.im)
+                )
+				#else
+				(
+                    #("i*", $e.im)
+                )
+            )
+			#else
+			(
+                ; Mixed.
+                #if ($e.im < 0)
+				(
+                    #($e.re, "-i*", -$e.im)
+                )
+				#else
+				(
+                    #($e.re, "+i*", $e.im)
+                )
+            )
+        )
+    )
+
+    children
+	(
+        #(
+            #(real : $e.re),
+            #(imag : $e.im)
+        )
+    )
+}
+
+cv::Point_<*> {
+	preview
+	(
+		#(
+			"(",
+			[$c.x],
+			", ",
+			[$c.y],
+            ")"
+		)
+	)
+}
+
+cv::Range {
+	preview
+	(
+		#if ($c.start == $c.end)
+		(
+			#("(empty)")
+		)
+		#else
+		(
+			#(
+				"(",
+				[$c.start],
+				", ",
+				[$c.end],
+				")"
+			)
+		)
+	)
+
+	children
+	(
+		#(
+			#([size] : $c.end * $c.start)
+		)
+	)
+}
+
+cv::Point3_<*> {
+	preview
+	(
+		#(
+			"(",
+			[$c.x],
+			", ",
+			[$c.y],
+			", ",
+			[$c.z],
+            ")"
+		)
+	)
+}
+
+cv::Size_<*> {
+	preview
+	(
+		#(
+			"(",
+			[$c.width],
+			", ",
+			[$c.height],
+            ")"
+		)
+	)
+
+	children
+	(
+		#(
+			#([area] : $c.width * $c.height)
+		)
+	)
+}
+
+cv::RotatedRect {
+	preview
+	(
+		#(
+			"(",
+			[$c.center.x],
+			", ",
+			[$c.center.y],
+			"), (",
+			[$c.size.width],
+			", ",
+			[$c.size.height],
+			"), ",
+			[$c.angle],
+			"°"
+		)
+	)
+}
+
+cv::Rect_<*> {
+	preview
+	(
+		#(
+			"(",
+			[$c.x],
+			", ",
+			[$c.y],
+			", ",
+			[$c.width],
+			", ",
+			[$c.height],
+            ")"
+		)
+	)
+
+	children
+	(
+		#(
+			#([area] : $c.width * $c.height)
+		)
+	)
+}
+
+
+cv::Scalar_<*> {
+	preview
+	(
+		#(
+			"(",
+			#array
+			(
+				expr: $c.val[$i],
+				size: 4
+			),
+            ")"
+		)
+	)
+}
+
+cv::Matx<*,*,*> {
+	preview
+	(
+		#(
+			"[",
+			$T2,
+			"x",
+			$T3,
+            "](",
+			#array
+			(
+				expr: $c.val[$i],
+				size: $T2 * $T3
+			),
+            ")"
+		)
+	)
+
+	children
+	(
+		#(
+			#([rows] : $T2),
+			#([columns] : $T3),
+			#array
+			(
+				expr: $c.val[$i],
+				size: $T2 * $T3
+			)
+		)
+	)
+}
+
+cv::Ptr<*> {
+	preview
+	(
+		#if (!$e.obj)
+		(
+			"empty"
+		)
+		#else
+		(
+			#(
+				"Ptr ",
+                *$e.obj,
+                " [",
+				*$e.refcount,
+				#if (*$e.refcount == 1) (" ref") #else (" refs"),
+				"]"
+			)
+		)
+	)
+
+	children
+	(
+		#if (!$e.obj)
+		(
+			#array(expr: 0, size: 0)
+		)
+		#else
+		(
+			#([ptr] : $e.obj)
+		)
+	)
+}
