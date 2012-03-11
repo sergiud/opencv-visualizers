@@ -7,5 +7,5 @@ OpenCV debugger visualizers for Visual Studio
 Getting Started
 ---------------
 
-Create an environment variable called ``_vcee_autoexp`` and let it point to
-``autoexp.dat``.
+To install the visualizers, create an environment variable called
+``_vcee_autoexp`` and let it point to ``autoexp.dat``.
