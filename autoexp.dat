@@ -24,7 +24,7 @@
 [Visualizer]
 
 cv::Mat {
-    preview
+	preview
 	(
 		#(
 			#($c.rows, "x", $c.cols), ; MxN
@@ -66,11 +66,11 @@ cv::Mat {
 				#([element size] : 0)
 			)
 		)
-    )
+	)
 }
 
 cv::Mat_<*> {
-    preview
+	preview
 	(
 		#(
 			#if (!!$e.refcount)
@@ -94,53 +94,53 @@ cv::Mat_<*> {
 			[depth] : ($c.flags & 7),
 			[channels] : ((($c.flags & (511 << 3)) >> 3) + 1)
 		)
-    )
+	)
 }
 
 cv::Complex<*> {
 	preview
 	(
-        #if ($e.im == 0)
+		#if ($e.im == 0)
 		(
-            ; Purely real.
-            $e.re
-        )
+			; Purely real.
+			$e.re
+		)
 		#else
 		(
-            #if ($e.re == 0)
+			#if ($e.re == 0)
 			(
-                ; Purely imaginary.
-                #if ($e.im < 0)
+				; Purely imaginary.
+				#if ($e.im < 0)
 				(
-                    #("-i*", -$e.im)
-                )
+					#("-i*", -$e.im)
+				)
 				#else
 				(
-                    #("i*", $e.im)
-                )
-            )
+					#("i*", $e.im)
+				)
+			)
 			#else
 			(
-                ; Mixed.
-                #if ($e.im < 0)
+				; Mixed.
+				#if ($e.im < 0)
 				(
-                    #($e.re, "-i*", -$e.im)
-                )
+					#($e.re, "-i*", -$e.im)
+				)
 				#else
 				(
-                    #($e.re, "+i*", $e.im)
-                )
-            )
-        )
-    )
+					#($e.re, "+i*", $e.im)
+				)
+			)
+		)
+	)
 
-    children
+	children
 	(
-        #(
-            #(real : $e.re),
-            #(imag : $e.im)
-        )
-    )
+		#(
+			#(real : $e.re),
+			#(imag : $e.im)
+		)
+	)
 }
 
 cv::Point_<*> {
@@ -151,7 +151,7 @@ cv::Point_<*> {
 			[$c.x],
 			", ",
 			[$c.y],
-            ")"
+			")"
 		)
 	)
 }
@@ -193,7 +193,7 @@ cv::Point3_<*> {
 			[$c.y],
 			", ",
 			[$c.z],
-            ")"
+			")"
 		)
 	)
 }
@@ -206,7 +206,7 @@ cv::Size_<*> {
 			[$c.width],
 			", ",
 			[$c.height],
-            ")"
+			")"
 		)
 	)
 
@@ -249,7 +249,7 @@ cv::Rect_<*> {
 			[$c.width],
 			", ",
 			[$c.height],
-            ")"
+			")"
 		)
 	)
 
@@ -272,7 +272,7 @@ cv::Scalar_<*> {
 				expr: $c.val[$i],
 				size: 4
 			),
-            ")"
+			")"
 		)
 	)
 }
@@ -285,13 +285,13 @@ cv::Matx<*,*,*> {
 			$T2,
 			"x",
 			$T3,
-            "](",
+			"](",
 			#array
 			(
 				expr: $c.val[$i],
 				size: $T2 * $T3
 			),
-            ")"
+			")"
 		)
 	)
 
@@ -320,8 +320,8 @@ cv::Ptr<*> {
 		(
 			#(
 				"Ptr ",
-                *$e.obj,
-                " [",
+				*$e.obj,
+				" [",
 				*$e.refcount,
 				#if (*$e.refcount == 1) (" ref") #else (" refs"),
 				"]"
@@ -343,7 +343,7 @@ cv::Ptr<*> {
 }
 
 cv::AutoBuffer<*,*> {
-    preview
+	preview
 	(
 		#(
 			"[",
@@ -358,8 +358,8 @@ cv::AutoBuffer<*,*> {
 		)
 	)
 
-    children
-    (
+	children
+	(
 		#(
 			#([size] : $c.size),
 			#array
@@ -368,5 +368,5 @@ cv::AutoBuffer<*,*> {
 				size: $c.size
 			)
 		)
-    )
+	)
 }
