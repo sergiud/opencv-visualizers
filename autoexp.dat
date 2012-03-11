@@ -27,7 +27,7 @@ cv::Mat {
 	preview
 	(
 		#(
-			#($c.rows, "x", $c.cols), ; MxN
+			#($c.rows, "×", $c.cols), ; M×N
 			" (",
 			#switch ($c.flags & 7)
 			#case 0 ( #("8U" ) )
@@ -100,7 +100,7 @@ cv::Mat_<*> {
 	preview
 	(
 		#(
-			#($c.rows, "x", $c.cols), ; MxN
+			#($c.rows, "×", $c.cols), ; M×N
 			#if (!!$e.refcount)
 			(
 				#(
@@ -228,7 +228,7 @@ cv::Size_<*> {
 		#(
 			"",
 			[$c.width],
-			"x",
+			"×",
 			[$c.height],
 			""
 		)
@@ -246,15 +246,17 @@ cv::RotatedRect {
 	preview
 	(
 		#(
-			"(",
+			"center=(",
 			[$c.center.x],
 			", ",
 			[$c.center.y],
 			") ",
+			"size=",
 			[$c.size.width],
-			"x",
+			"×",
 			[$c.size.height],
 			" ",
+			"angle=",
 			[$c.angle],
 			"°"
 		)
@@ -307,7 +309,7 @@ cv::Matx<*,*,*> {
 		#(
 			"[",
 			$T2,
-			"x",
+			"×",
 			$T3,
 			"](",
 			#array
