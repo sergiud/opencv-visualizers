@@ -2,3 +2,6 @@ syntax: glob
 
 *~
 *.swp
+*.msi
+*.wixobj
+*.wixpdb

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-US" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="feat_vs_pre_11_Title">Visual Studio 2005 and 2008</String>
+  <String Id="feat_vs_pre_11_Description">Debugger visualizers for Visual Studio 2005 and 2008</String>
+</WixLocalization>
