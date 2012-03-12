@@ -405,4 +405,11 @@ cv::AutoBuffer<*,*> {
 	)
 }
 
-; TODO: MatIterator, SparseMat, Exception, MatND, MatND_
+cv::Exception {
+	preview
+	(
+		#( $c.msg )
+	)
+}
+
+; TODO: MatIterator, SparseMat, MatND, MatND_
