@@ -59,19 +59,26 @@ cv::Mat {
 
 	children
 	(
-		#(
-			[continuous] : ($c.flags & 16384) == 16384,
-			[submatrix] : ($c.flags & 32678) == 32678,
-			[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
+		#if (!!$c.data)
+		(
+			#(
+				[continuous] : ($c.flags & 16384) == 16384,
+				[submatrix] : ($c.flags & 32678) == 32678,
+				[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
 
-			#if ($c.dims > 0)
-			(
-				#([element size] : $c.step.p[$c.dims-1])
+				#if ($c.dims > 0)
+				(
+					#([element size] : $c.step.p[$c.dims-1])
+				)
+				#else
+				(
+					#([element size] : 0)
+				)
 			)
-			#else
-			(
-				#([element size] : 0)
-			)
+		)
+		#else
+		(
+			#array (expr: 0, size: 0)
 		)
 	)
 }
@@ -112,15 +119,18 @@ cv::Mat_<*> {
 		)
 		#else
 		(
-			#(
-				#($c.rows, "×", $c.cols), ; M×N
-				#if (!!$e.refcount)
-				(
-					#(
-						" [",
-						*$e.refcount,
-						#if (*$e.refcount == 1) (" ref") #else (" refs"),
-						"] "
+			#if (!!$c.data)
+			(
+				#(
+					#($c.rows, "×", $c.cols), ; M×N
+					#if (!!$e.refcount)
+					(
+						#(
+							" [",
+							*$e.refcount,
+							#if (*$e.refcount == 1) (" ref") #else (" refs"),
+							"] "
+						)
 					)
 				)
 			)
@@ -129,10 +139,17 @@ cv::Mat_<*> {
 
 	children
 	(
-		#(
-			[continuous] : ($c.flags & 16384) == 16384,
-			[submatrix] : ($c.flags & 32678) == 32678
-			; TODO: display elements
+		#if (!!$c.data)
+		(
+			#(
+				[continuous] : ($c.flags & 16384) == 16384,
+				[submatrix] : ($c.flags & 32678) == 32678
+				; TODO: display elements
+			)
+		)
+		#else
+		(
+			#array (expr: 0, size: 0)
 		)
 	)
 }
