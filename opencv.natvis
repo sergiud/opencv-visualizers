@@ -22,7 +22,6 @@
 -->
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
   <Type Name="cv::Mat">
-    <AlternativeType Name="cv::Mat_&lt;*&gt;" />
     <DisplayString Condition="data == 0">empty</DisplayString>
     <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount == 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
     <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount == 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
@@ -44,6 +43,32 @@
       <Item Name="[channels]">(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &gt; 0">dims</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &lt; 0">0</Item>
+      <Item Name="[data]">data</Item>
+    </Expand>
+  </Type>
+  <Type Name="cv::Mat_&lt;*&gt;">
+    <DisplayString Condition="data == 0">empty</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount == 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount == 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount == 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount == 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount == 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount == 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount == 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount != 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount != 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount != 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount != 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount != 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount != 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount != 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
+    <Expand>
+      <Item Name="[continous]">(flags &amp; 16384) == 16384</Item>
+      <Item Name="[submatrix]">(flags &amp; 32678) == 32678</Item>
+      <Item Name="[channels]">(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)</Item>
+      <Item Name="[element size]" Condition="step.p[dims-1] &gt; 0">dims</Item>
+      <Item Name="[element size]" Condition="step.p[dims-1] &lt; 0">0</Item>
+      <Item Name="[data]">($T1*)data</Item>
     </Expand>
   </Type>
   <Type Name="cv::Point_&lt;*&gt;">
@@ -79,7 +104,7 @@
       </ArrayItems>
     </Expand>
   </Type>
-  <Type Name="cv::Vec_&lt;*,*&gt;">
+  <Type Name="cv::Vec&lt;*,*&gt;">
     <Expand>
       <ArrayItems>
         <Size>$T2</Size>
@@ -88,6 +113,7 @@
     </Expand>
   </Type>
   <Type Name="cv::Matx&lt;*,*,*&gt;">
+    <DisplayString>{{size = {$T2}×{$T3}}}</DisplayString>
     <Expand>
       <ArrayItems>
         <Size>$T2 * $T3</Size>
@@ -97,13 +123,14 @@
   </Type>
   <Type Name="cv::Ptr&lt;*&gt;">
     <DisplayString Condition="obj == 0">empty</DisplayString>
-    <DisplayString Condition="obj != 0 &amp;&amp; *refcount == 1">Ptr {obj} [*refcount ref]</DisplayString>
-    <DisplayString Condition="obj != 0 &amp;&amp; *refcount != 1">Ptr {obj} [*refcount refs]</DisplayString>
+    <DisplayString Condition="obj != 0 &amp;&amp; *refcount == 1">Ptr {*obj} [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="obj != 0 &amp;&amp; *refcount != 1">Ptr {*obj} [{*refcount} refs]</DisplayString>
     <Expand>
       <Item Name="[ptr]" Condition="obj != 0">obj</Item>
     </Expand>
   </Type>
   <Type Name="cv::AutoBuffer&lt;*,*&gt;">
+    <DisplayString>{{size = {size}}}</DisplayString>
     <Expand>
       <ArrayItems>
         <Size>size</Size>

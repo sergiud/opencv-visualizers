@@ -23,7 +23,7 @@
 
 [Visualizer]
 
-cv::Mat|cv::Mat_<*> {
+cv::Mat {
 	preview
 	(
 		#if (!$c.data)
@@ -65,6 +65,68 @@ cv::Mat|cv::Mat_<*> {
 				[continuous] : ($c.flags & 16384) == 16384,
 				[submatrix] : ($c.flags & 32678) == 32678,
 				[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
+				[data] : $c.data,
+
+				#if ($c.dims > 0)
+				(
+					#([element size] : $c.step.p[$c.dims-1])
+				)
+				#else
+				(
+					#([element size] : 0)
+				)
+			)
+		)
+		#else
+		(
+			#array (expr: 0, size: 0)
+		)
+	)
+}
+
+cv::Mat_<*> {
+	preview
+	(
+		#if (!$c.data)
+		(
+			#( "(empty)" )
+		)
+		#else
+		(
+			#(
+				#($c.rows, "×", $c.cols), ; M×N
+				" (",
+				#switch ($c.flags & 7)
+				#case 0 ( #("8U" ) )
+				#case 1 ( #("8S" ) )
+				#case 2 ( #("16U" ) )
+				#case 3 ( #("16S" ) )
+				#case 4 ( #("32S" ) )
+				#case 5 ( #("32F" ) )
+				#case 6 ( #("64F" ) ),
+				")",
+				#if (!!$e.refcount)
+				(
+					#(
+						" [",
+						*$e.refcount,
+						#if (*$e.refcount == 1) (" ref") #else (" refs"),
+						"] "
+					)
+				)
+			)
+		)
+	)
+
+	children
+	(
+		#if (!!$c.data)
+		(
+			#(
+				[continuous] : ($c.flags & 16384) == 16384,
+				[submatrix] : ($c.flags & 32678) == 32678,
+				[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
+				[data] : ($T1*)$c.data,
 
 				#if ($c.dims > 0)
 				(
