@@ -1,7 +1,7 @@
 @echo off
 
 set PROJECT_NAME=OpenCV Debugger Visualizers
-set PROJECT_VERSION=0.1
+set PROJECT_VERSION=0.2
 set PROJECT_BINARYDIR=%~dp0\..
 set PROJECT_PLATFORM=x86
 set COMMAND_ARGS="-dProductName=%PROJECT_NAME%" -dVersion=%PROJECT_VERSION% ^
