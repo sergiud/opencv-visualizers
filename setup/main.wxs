@@ -19,7 +19,7 @@
     <Media Id="1"
            Cabinet="setup.cab"
            EmbedCab="yes"
-           CompressionLevel="none" />
+           CompressionLevel="high" />
 
     <WixVariable Id="WixUIBannerBmp"
                  Overridable="yes"
