@@ -71,6 +71,9 @@
         <Environment Id="env_opencv" Action="set" Part="all" System="yes"
                      Name="_vcee_autoexp" Permanent="no" Value="[INSTALLDIR]autoexp.dat" />
       </Component>
+      <Component Id="comp_vs_11" Guid="{DCB0D418-E6EA-4F96-9AE5-5B15C931C5F5}">
+        <File Id="file_opencv_natvis" Source="$(var.ProjectBinaryDir)\opencv.natvis" />
+      </Component>
     </DirectoryRef>
 
     <!--Features-->
@@ -79,9 +82,15 @@
              Level="1"
              AllowAdvertise="no"
              Description="!(loc.feat_vs_pre_11_Description)"
-             ConfigurableDirectory="INSTALLDIR"
-             Absent="disallow">
+             ConfigurableDirectory="INSTALLDIR">
       <ComponentRef Id="comp_vs_pre_11" />
+    </Feature>
+    <Feature Id="feat_vs_11"
+             Title="!(loc.feat_vs_11_Title)"
+             Level="1"
+             AllowAdvertise="no"
+             Description="!(loc.feat_vs_11_Description)">
+      <ComponentRef Id="comp_vs_11" />
     </Feature>
   </Product>
 </Wix>
