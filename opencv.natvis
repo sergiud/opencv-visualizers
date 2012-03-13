@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="cv::Mat">
+    <AlternativeType Name="cv::Mat_&lt;*&gt;" />
+    <DisplayString Condition="data == 0">empty</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount == 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount == 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount == 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount == 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount == 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount == 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount == 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount != 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount != 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount != 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount != 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount != 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount != 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount != 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
+    <Expand>
+      <Item Name="[continous]">(flags &amp; 16384) == 16384</Item>
+      <Item Name="[submatrix]">(flags &amp; 32678) == 32678</Item>
+      <Item Name="[channels]">(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)</Item>
+      <Item Name="[element size]" Condition="step.p[dims-1] &gt; 0">dims</Item>
+      <Item Name="[element size]" Condition="step.p[dims-1] &lt; 0">0</Item>
+    </Expand>
+  </Type>
+  <Type Name="cv::Point_&lt;*&gt;">
+    <DisplayString>({x},{y})</DisplayString>
+  </Type>
+  <Type Name="cv::Point3_&lt;*&gt;">
+    <DisplayString>({x},{y},{z})</DisplayString>
+  </Type>
+  <Type Name="cv::Size_&lt;*&gt;">
+    <DisplayString>{width}×{height}</DisplayString>
+  </Type>
+  <Type Name="cv::Range">
+    <DisplayString Condition="start == end">empty</DisplayString>
+    <DisplayString Condition="start != end">[start,end)</DisplayString>
+    <Expand>
+      <Item Name="[size]">end - start</Item>
+    </Expand>
+  </Type>
+  <Type Name="cv::RotatedRect">
+    <DisplayString>center={center} size={size} angle={angle}°</DisplayString>
+  </Type>
+  <Type Name="cv::Rect_&lt;*&gt;">
+    <DisplayString>({x},{y},{x + width},{y + height}) [{width}×{height}]</DisplayString>
+    <Expand>
+      <Item Name="[area]">width * height</Item>
+    </Expand>
+  </Type>
+  <Type Name="cv::Scalar_&lt;*&gt;">
+    <Expand>
+      <ArrayItems>
+        <Size>4</Size>
+        <ValuePointer>val</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="cv::Vec_&lt;*,*&gt;">
+    <Expand>
+      <ArrayItems>
+        <Size>$T2</Size>
+        <ValuePointer>val</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="cv::Matx&lt;*,*,*&gt;">
+    <Expand>
+      <ArrayItems>
+        <Size>$T2 * $T3</Size>
+        <ValuePointer>val</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="cv::Ptr&lt;*&gt;">
+    <DisplayString Condition="obj == 0">empty</DisplayString>
+    <DisplayString Condition="obj != 0 &amp;&amp; *refcount == 1">Ptr {obj} [*refcount ref]</DisplayString>
+    <DisplayString Condition="obj != 0 &amp;&amp; *refcount != 1">Ptr {obj} [*refcount refs]</DisplayString>
+    <Expand>
+      <Item Name="[ptr]" Condition="obj != 0">obj</Item>
+    </Expand>
+  </Type>
+  <Type Name="cv::AutoBuffer&lt;*,*&gt;">
+    <Expand>
+      <ArrayItems>
+        <Size>size</Size>
+        <ValuePointer>ptr</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="cv::Complex&lt;*&gt;">
+    <!--pure real-->
+    <DisplayString Condition="im == 0">{re}</DisplayString>
+    <!--pure imaginary-->
+    <DisplayString Condition="(re == 0) &amp;&amp; (im &lt; 0)">-i*{-im}</DisplayString>
+    <DisplayString Condition="(re == 0) &amp;&amp; (im &gt;= 0)">i*{im}</DisplayString>
+    <!--mixed-->
+    <DisplayString Condition="im &lt; 0">{re}-i*{-im}</DisplayString>
+    <DisplayString>{re}+i*{im}</DisplayString>
+    <Expand>
+      <Item Name="real">re</Item>
+      <Item Name="imag">im</Item>
+    </Expand>
+  </Type>
+  <Type Name="cv::Exception">
+    <DisplayString>msg</DisplayString>
+  </Type>
+  <!--TODO: MatIterator, SparseMat, MatND, MatND_-->
+</AutoVisualizer>
