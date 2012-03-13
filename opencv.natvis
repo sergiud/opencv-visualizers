@@ -155,5 +155,12 @@
   <Type Name="cv::Exception">
     <DisplayString>msg</DisplayString>
   </Type>
-  <!--TODO: MatIterator, SparseMat, MatND, MatND_-->
+  <Type Name="cv::MatConstIterator_&lt;*&gt;">
+    <AlternativeType Name="cv::MatConstIterator_&lt;*&gt;" />
+    <DisplayString>{*(($T1*)ptr)}</DisplayString>
+    <Expand>
+      <Item Name="[ptr]">($T1*)ptr</Item>
+    </Expand>
+  </Type>
+  <!--TODO: MatIterator, SparseMat-->
 </AutoVisualizer>
