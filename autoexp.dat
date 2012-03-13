@@ -23,7 +23,7 @@
 
 [Visualizer]
 
-cv::Mat {
+cv::Mat|cv::Mat_<*> {
 	preview
 	(
 		#if (!$c.data)
@@ -106,50 +106,6 @@ cv::Vec<*,*> {
 				expr: $c.val[$i],
 				size: $T2
 			)
-		)
-	)
-}
-
-cv::Mat_<*> {
-	preview
-	(
-		#if (!$c.data)
-		(
-			#( "(empty)" )
-		)
-		#else
-		(
-			#if (!!$c.data)
-			(
-				#(
-					#($c.rows, "×", $c.cols), ; M×N
-					#if (!!$e.refcount)
-					(
-						#(
-							" [",
-							*$e.refcount,
-							#if (*$e.refcount == 1) (" ref") #else (" refs"),
-							"] "
-						)
-					)
-				)
-			)
-		)
-	)
-
-	children
-	(
-		#if (!!$c.data)
-		(
-			#(
-				[continuous] : ($c.flags & 16384) == 16384,
-				[submatrix] : ($c.flags & 32678) == 32678
-				; TODO: display elements
-			)
-		)
-		#else
-		(
-			#array (expr: 0, size: 0)
 		)
 	)
 }
