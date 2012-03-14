@@ -1,7 +1,9 @@
 syntax: glob
 
-*~
-*.swp
+*.aps
 *.msi
+*.swp
 *.wixobj
 *.wixpdb
+*~
+build*
