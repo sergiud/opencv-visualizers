@@ -493,4 +493,18 @@ cv::Exception {
 	)
 }
 
+cv::MatIterator_<*>|cv::MatConstIterator_<*> {
+	preview
+	(
+		#( *(($T1*)$c.ptr) )
+	)
+
+	children
+	(
+		#(
+			[ptr] : ($T1*)$c.ptr
+		)
+	)
+}
+
 ; TODO: MatIterator, SparseMat, MatND, MatND_
