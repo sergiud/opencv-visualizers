@@ -64,7 +64,7 @@ cv::Mat {
 			(
 				#(
 					[continuous] : ($c.flags & 16384) == 16384,
-					[submatrix] : ($c.flags & 32678) == 32678,
+					[submatrix] : ($c.flags & 32768) == 32768,
 					[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
 
 					#if ($c.dims > 0)
@@ -141,7 +141,7 @@ cv::Mat_<*> {
 			(
 				#(
 					[continuous] : ($c.flags & 16384) == 16384,
-					[submatrix] : ($c.flags & 32678) == 32678,
+					[submatrix] : ($c.flags & 32768) == 32768,
 					[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
 
 					#if ($c.dims > 0)
