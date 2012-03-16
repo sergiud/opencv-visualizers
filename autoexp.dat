@@ -36,13 +36,13 @@ cv::Mat {
 				#($c.rows, "×", $c.cols), ; M×N
 				" (",
 				#switch ($c.flags & 7)
-				#case 0 ( #("8U" ) )
-				#case 1 ( #("8S" ) )
-				#case 2 ( #("16U" ) )
-				#case 3 ( #("16S" ) )
-				#case 4 ( #("32S" ) )
-				#case 5 ( #("32F" ) )
-				#case 6 ( #("64F" ) ),
+				#case 0 ( #("8U") )
+				#case 1 ( #("8S") )
+				#case 2 ( #("16U") )
+				#case 3 ( #("16S") )
+				#case 4 ( #("32S") )
+				#case 5 ( #("32F") )
+				#case 6 ( #("64F") ),
 				")",
 				#if (!!$e.refcount)
 				(
@@ -69,7 +69,7 @@ cv::Mat {
 
 					#if ($c.dims > 0)
 					(
-						#([element size] : $c.step.p[$c.dims-1])
+						#([element size] : $c.step.p[$c.dims - 1])
 					)
 					#else
 					(
@@ -86,11 +86,14 @@ cv::Mat {
 
 			#if ($c.dims == 2)
 			(
-				#array
-				(
-					expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
-					rank: $c.dims,
-					size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+				#(
+					[size] : $c.cols * $c.rows,
+					#array
+					(
+						expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+						rank: $c.dims,
+						size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+					)
 				)
 			)
 		)
@@ -110,13 +113,13 @@ cv::Mat_<*> {
 				#($c.rows, "×", $c.cols), ; M×N
 				" (",
 				#switch ($c.flags & 7)
-				#case 0 ( #("8U" ) )
-				#case 1 ( #("8S" ) )
-				#case 2 ( #("16U" ) )
-				#case 3 ( #("16S" ) )
-				#case 4 ( #("32S" ) )
-				#case 5 ( #("32F" ) )
-				#case 6 ( #("64F" ) ),
+				#case 0 ( #("8U") )
+				#case 1 ( #("8S") )
+				#case 2 ( #("16U") )
+				#case 3 ( #("16S") )
+				#case 4 ( #("32S") )
+				#case 5 ( #("32F") )
+				#case 6 ( #("64F") ),
 				")",
 				#if (!!$e.refcount)
 				(
@@ -143,7 +146,7 @@ cv::Mat_<*> {
 
 					#if ($c.dims > 0)
 					(
-						#([element size] : $c.step.p[$c.dims-1])
+						#([element size] : $c.step.p[$c.dims - 1])
 					)
 					#else
 					(
@@ -160,11 +163,14 @@ cv::Mat_<*> {
 
 			#if ($c.dims == 2)
 			(
-				#array
-				(
-					expr: (($T1*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
-					rank: $c.dims,
-					size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+				#(
+					[size] : $c.cols * $c.rows,
+					#array
+					(
+						expr: (($T1*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+						rank: $c.dims,
+						size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+					)
 				)
 			)
 		)
