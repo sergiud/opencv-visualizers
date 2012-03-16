@@ -496,7 +496,14 @@ cv::Exception {
 cv::MatIterator_<*>|cv::MatConstIterator_<*> {
 	preview
 	(
-		#( *(($T1*)$c.ptr) )
+		#if ($c.m->dims == 2 && $c.ptr == $c.m->data + $c.m->cols * $c.m->rows * $c.m->step.p[$c.m->dims - 1])
+		(
+			#("end")
+		)
+		#else
+		(
+			#(*(($T1*)$c.ptr))
+		)
 	)
 
 	children
@@ -507,4 +514,25 @@ cv::MatIterator_<*>|cv::MatConstIterator_<*> {
 	)
 }
 
-; TODO: MatIterator, SparseMat, MatND, MatND_
+cv::MatConstIterator {
+	preview
+	(
+		#if ($c.m->dims == 2 && $c.ptr == $c.m->data + $c.m->cols * $c.m->rows * $c.m->step.p[$c.m->dims - 1])
+		(
+			#("end")
+		)
+		#else
+		(
+			#(*($c.ptr))
+		)
+	)
+
+	children
+	(
+		#(
+			[ptr] : $c.ptr
+		)
+	)
+}
+
+; TODO: SparseMat, MatND, MatND_
