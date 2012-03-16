@@ -319,7 +319,8 @@ cv::Size_<*> {
 
 	children
 	(
-		#(
+		#if ($c.width >= 0 && $c.height >= 0)
+		(
 			#([area] : $c.width * $c.height)
 		)
 	)
