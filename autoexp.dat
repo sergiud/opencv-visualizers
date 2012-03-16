@@ -83,7 +83,17 @@ cv::Mat {
 				#array (expr: 0, size: 0)
 			),
 
-			[raw members] : [$c,!]
+			[raw members] : [$c,!],
+
+			#if ($c.dims == 2)
+			(
+				#array
+				(
+					expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+					rank: $c.dims,
+					size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+				)
+			)
 		)
 	)
 }
@@ -148,7 +158,17 @@ cv::Mat_<*> {
 				#array (expr: 0, size: 0)
 			),
 
-			[raw members] : [$c,!]
+			[raw members] : [$c,!],
+
+			#if ($c.dims == 2)
+			(
+				#array
+				(
+					expr: (($T1*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+					rank: $c.dims,
+					size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+				)
+			)
 		)
 	)
 }
