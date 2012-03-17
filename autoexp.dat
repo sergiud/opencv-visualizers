@@ -23,7 +23,7 @@
 
 [Visualizer]
 
-cv::Mat {
+cv::Mat|cv::Mat_<*> {
 	preview
 	(
 		#if (!$c.data)
@@ -402,83 +402,6 @@ cv::Mat {
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
-					)
-				)
-			)
-		)
-	)
-}
-
-cv::Mat_<*> {
-	preview
-	(
-		#if (!$c.data)
-		(
-			#( "(empty)" )
-		)
-		#else
-		(
-			#(
-				#($c.rows, "×", $c.cols), ; M×N
-				" (",
-				#switch ($c.flags & 7)
-				#case 0 ( #("8U") )
-				#case 1 ( #("8S") )
-				#case 2 ( #("16U") )
-				#case 3 ( #("16S") )
-				#case 4 ( #("32S") )
-				#case 5 ( #("32F") )
-				#case 6 ( #("64F") ),
-				")",
-				#if (!!$e.refcount)
-				(
-					#(
-						" [",
-						*$e.refcount,
-						#if (*$e.refcount == 1) (" ref") #else (" refs"),
-						"] "
-					)
-				)
-			)
-		)
-	)
-
-	children
-	(
-		#(
-			#if (!!$c.data)
-			(
-				#(
-					[continuous] : ($c.flags & 16384) == 16384,
-					[submatrix] : ($c.flags & 32768) == 32768,
-					[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
-
-					#if ($c.dims > 0)
-					(
-						#([element size] : $c.step.p[$c.dims - 1])
-					)
-					#else
-					(
-						#([element size] : 0)
-					)
-				)
-			)
-			#else
-			(
-				#array (expr: 0, size: 0)
-			),
-
-			[raw members] : [$c,!],
-
-			#if ($c.dims == 2)
-			(
-				#(
-					[size] : $c.cols * $c.rows,
-					#array
-					(
-						expr: (($T1*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
-						rank: $c.dims,
-						size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 					)
 				)
 			)
