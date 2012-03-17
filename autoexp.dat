@@ -177,6 +177,33 @@ cv::Mat_<*> {
 	)
 }
 
+cv::Vec<float,*>|cv::Vec<double,*>|cv::Vec<long double,*> {
+	preview
+	(
+		#(
+			"(",
+			#array
+			(
+				expr: [$c.val[$i],g],
+				size: $T1
+			),
+			")"
+		)
+	)
+
+	children
+	(
+		#(
+			[size] : $T1,
+			#array
+			(
+				expr: $c.val[$i],
+				size: $T1
+			)
+		)
+	)
+}
+
 cv::Vec<*,*> {
 	preview
 	(
@@ -194,7 +221,7 @@ cv::Vec<*,*> {
 	children
 	(
 		#(
-			#([size] : $T2),
+			[size] : $T2,
 			#array
 			(
 				expr: $c.val[$i],
@@ -210,7 +237,7 @@ cv::Complex<*> {
 		#if ($e.im == 0)
 		(
 			; Purely real.
-			$e.re
+			[$e.re,g]
 		)
 		#else
 		(
@@ -219,11 +246,11 @@ cv::Complex<*> {
 				; Purely imaginary.
 				#if ($e.im < 0)
 				(
-					#("-i*", -$e.im)
+					#("-i*", [-$e.im,g])
 				)
 				#else
 				(
-					#("i*", $e.im)
+					#("i*", [$e.im,g])
 				)
 			)
 			#else
@@ -231,11 +258,11 @@ cv::Complex<*> {
 				; Mixed.
 				#if ($e.im < 0)
 				(
-					#($e.re, "-i*", -$e.im)
+					#([$e.re,g], "-i*", [-$e.im,g])
 				)
 				#else
 				(
-					#($e.re, "+i*", $e.im)
+					#([$e.re,g], "+i*", [$e.im,g])
 				)
 			)
 		)
@@ -246,6 +273,19 @@ cv::Complex<*> {
 		#(
 			#(real : $e.re),
 			#(imag : $e.im)
+		)
+	)
+}
+
+cv::Point_<float>|cv::Point_<double>|cv::Point_<long double> {
+	preview
+	(
+		#(
+			"(",
+			[$c.x,g],
+			",",
+			[$c.y,g],
+			")"
 		)
 	)
 }
@@ -290,6 +330,21 @@ cv::Range {
 	)
 }
 
+cv::Point3_<float>|cv::Point3_<double>|cv::Point3_<long double> {
+	preview
+	(
+		#(
+			"(",
+			[$c.x,g],
+			",",
+			[$c.y,g],
+			",",
+			[$c.z,g],
+			")"
+		)
+	)
+}
+
 cv::Point3_<*> {
 	preview
 	(
@@ -301,6 +356,27 @@ cv::Point3_<*> {
 			",",
 			[$c.z],
 			")"
+		)
+	)
+}
+
+cv::Size_<float>|cv::Size_<double>|cv::Size_<long double> {
+	preview
+	(
+		#(
+			"",
+			[$c.width,g],
+			"×",
+			[$c.height,g],
+			""
+		)
+	)
+
+	children
+	(
+		#if ($c.width >= 0 && $c.height >= 0)
+		(
+			#([area] : $c.width * $c.height)
 		)
 	)
 }
@@ -347,6 +423,36 @@ cv::RotatedRect {
 	)
 }
 
+cv::Rect_<float>|cv::Rect_<double>|cv::Rect_<long double> {
+	preview
+	(
+		#(
+			"(",
+			[$c.x,g],
+			",",
+			[$c.y,g],
+			",",
+			[$c.x+$c.width,g],
+			",",
+			[$c.y+$c.height,g],
+			")",
+			" ",
+			"[",
+			[$c.width,g],
+			"×",
+			[$c.height,g],
+			"]"
+		)
+	)
+
+	children
+	(
+		#(
+			#([area] : $c.width * $c.height)
+		)
+	)
+}
+
 cv::Rect_<*> {
 	preview
 	(
@@ -377,6 +483,20 @@ cv::Rect_<*> {
 	)
 }
 
+cv::Scalar_<float>|cv::Scalar_<double>|cv::Scalar_<long double> {
+	preview
+	(
+		#(
+			"(",
+			#array
+			(
+				expr: [$c.val[$i],g],
+				size: 4
+			),
+			")"
+		)
+	)
+}
 
 cv::Scalar_<*> {
 	preview
@@ -389,6 +509,38 @@ cv::Scalar_<*> {
 				size: 4
 			),
 			")"
+		)
+	)
+}
+
+cv::Matx<float,*,*>|cv::Matx<double,*,*>|cv::Matx<long double,*,*> {
+	preview
+	(
+		#(
+			"[",
+			$T1,
+			"×",
+			$T2,
+			"](",
+			#array
+			(
+				expr: [$c.val[$i],g],
+				size: $T1 * $T2
+			),
+			")"
+		)
+	)
+
+	children
+	(
+		#(
+			[rows] : $T1,
+			[columns] : $T2,
+			#array
+			(
+				expr: $c.val[$i],
+				size: $T1 * $T2
+			)
 		)
 	)
 }
@@ -414,8 +566,8 @@ cv::Matx<*,*,*> {
 	children
 	(
 		#(
-			#([rows] : $T2),
-			#([columns] : $T3),
+			[rows] : $T2,
+			[columns] : $T3,
 			#array
 			(
 				expr: $c.val[$i],
