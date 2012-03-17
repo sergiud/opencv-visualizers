@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Copyright (c) 2012 Sergiu Dotenco
-  
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
-  
+
   The above copyright notice and this permission notice shall be included in
   all copies or substantial portions of the Software.
-  
+
   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -39,7 +39,7 @@
     <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount != 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
     <Expand>
       <Item Name="[continous]">(flags &amp; 16384) == 16384</Item>
-      <Item Name="[submatrix]">(flags &amp; 32678) == 32678</Item>
+      <Item Name="[submatrix]">(flags &amp; 32768) == 32768</Item>
       <Item Name="[channels]">(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &gt; 0">dims</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &lt; 0">0</Item>
@@ -64,7 +64,7 @@
     <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount != 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
     <Expand>
       <Item Name="[continous]">(flags &amp; 16384) == 16384</Item>
-      <Item Name="[submatrix]">(flags &amp; 32678) == 32678</Item>
+      <Item Name="[submatrix]">(flags &amp; 32768) == 32768</Item>
       <Item Name="[channels]">(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &gt; 0">dims</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &lt; 0">0</Item>
@@ -79,6 +79,9 @@
   </Type>
   <Type Name="cv::Size_&lt;*&gt;">
     <DisplayString>{width}×{height}</DisplayString>
+    <Expand>
+      <Item Condition="width >= 0 &amp;&amp; height >= 0" Name="[area]">width * height</Item>
+    </Expand>
   </Type>
   <Type Name="cv::Range">
     <DisplayString Condition="start == end">empty</DisplayString>
@@ -156,11 +159,19 @@
     <DisplayString>msg</DisplayString>
   </Type>
   <Type Name="cv::MatConstIterator_&lt;*&gt;">
-    <AlternativeType Name="cv::MatConstIterator_&lt;*&gt;" />
-    <DisplayString>{*(($T1*)ptr)}</DisplayString>
+    <AlternativeType Name="cv::MatIterator_&lt;*&gt;" />
+    <DisplayString Condition="m->dims == 2 &amp;&amp; ptr == m->data + m->cols * m->rows * m->step.p[m->dims - 1]">{*(($T1*)ptr)}</DisplayString>
+    <DisplayString Condition="!(m->dims == 2 &amp;&amp; ptr == m->data + m->cols * m->rows * m->step.p[m->dims - 1])">end</DisplayString>
     <Expand>
       <Item Name="[ptr]">($T1*)ptr</Item>
     </Expand>
   </Type>
-  <!--TODO: MatIterator, SparseMat-->
+  <Type Name="cv::MatConstIterator">
+    <DisplayString Condition="m->dims == 2 &amp;&amp; ptr == m->data + m->cols * m->rows * m->step.p[m->dims - 1]">{*ptr}</DisplayString>
+    <DisplayString Condition="!(m->dims == 2 &amp;&amp; ptr == m->data + m->cols * m->rows * m->step.p[m->dims - 1])">end</DisplayString>
+    <Expand>
+      <Item Name="[ptr]">ptr</Item>
+    </Expand>
+  </Type>
+  <!--TODO: SparseMat-->
 </AutoVisualizer>
