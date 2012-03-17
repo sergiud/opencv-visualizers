@@ -524,8 +524,9 @@ cv::Matx<float,*,*>|cv::Matx<double,*,*>|cv::Matx<long double,*,*> {
 			"](",
 			#array
 			(
-				expr: [$c.val[$i],g],
-				size: $T1 * $T2
+				expr: [$c.val[($i / $T1) + ($i - ($i / $T1) * $T2) * $T2],g],
+				rank: 2,
+				size: ($r == 1) * $T1 + ($r == 0) * $T2
 			),
 			")"
 		)
@@ -538,8 +539,9 @@ cv::Matx<float,*,*>|cv::Matx<double,*,*>|cv::Matx<long double,*,*> {
 			[columns] : $T2,
 			#array
 			(
-				expr: $c.val[$i],
-				size: $T1 * $T2
+				expr: $c.val[($i / $T1) + ($i - ($i / $T1) * $T2) * $T2],
+				rank: 2,
+				size: ($r == 1) * $T1 + ($r == 0) * $T2
 			)
 		)
 	)
@@ -556,8 +558,9 @@ cv::Matx<*,*,*> {
 			"](",
 			#array
 			(
-				expr: $c.val[$i],
-				size: $T2 * $T3
+				expr: $c.val[($i / $T2) + ($i - ($i / $T2) * $T3) * $T3],
+				rank: 2,
+				size: ($r == 1) * $T2 + ($r == 0) * $T3
 			),
 			")"
 		)
@@ -570,8 +573,9 @@ cv::Matx<*,*,*> {
 			[columns] : $T3,
 			#array
 			(
-				expr: $c.val[$i],
-				size: $T2 * $T3
+				expr: $c.val[($i / $T2) + ($i - ($i / $T2) * $T3) * $T3],
+				rank: 2,
+				size: ($r == 1) * $T2 + ($r == 0) * $T3
 			)
 		)
 	)
