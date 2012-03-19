@@ -69,7 +69,7 @@ cv::Mat|cv::Mat_<*> {
 
 					#if ($c.dims > 0)
 					(
-						#([element size] : $c.step.p[$c.dims - 1])
+						#([element size] : (size_t)$c.step.p[$c.dims - 1])
 					)
 					#else
 					(
