@@ -3,7 +3,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include configuration.wxi ?>
 
-  <Product Id="{C24E6908-17ED-496E-8A45-C3F4C3E9CA79}"
+  <Product Id="{6ECE5D01-3D51-4CFB-8D37-9717D2D2439F}"
            Name="$(var.ProductName)"
            Language="1033"
            Version="$(var.Version)"
