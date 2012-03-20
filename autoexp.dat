@@ -646,17 +646,17 @@ cv::RotatedRect {
 	(
 		#(
 			"center=(",
-			[$c.center.x],
+			[$c.center.x,g],
 			",",
-			[$c.center.y],
+			[$c.center.y,g],
 			") ",
 			"size=",
-			[$c.size.width],
+			[$c.size.width,g],
 			"×",
-			[$c.size.height],
+			[$c.size.height,g],
 			" ",
 			"angle=",
-			[$c.angle],
+			[$c.angle,g],
 			"°"
 		)
 	)
