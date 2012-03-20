@@ -557,15 +557,15 @@ cv::Range {
 	children
 	(
 		#if ($c.start != $c.end)
-        (
-            #(
-			    #([size] : $c.end - $c.start)
-		    )
-        )
-        #else
-        (
-            #array (expr: 0, size: 0)
-        )
+		(
+			#(
+				#([size] : $c.end - $c.start)
+			)
+		)
+		#else
+		(
+			#array (expr: 0, size: 0)
+		)
 	)
 }
 
