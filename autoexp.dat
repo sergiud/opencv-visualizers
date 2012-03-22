@@ -409,6 +409,380 @@ cv::Mat|cv::Mat_<*> {
 	)
 }
 
+cv::gpu::GpuMat {
+	preview
+	(
+		#if (!$c.data)
+		(
+			#( "(empty)" )
+		)
+		#else
+		(
+			#(
+				#($c.rows, "×", $c.cols), ; M×N
+				" (",
+				#switch ($c.flags & 7)
+				#case 0 ( #("8U") )
+				#case 1 ( #("8S") )
+				#case 2 ( #("16U") )
+				#case 3 ( #("16S") )
+				#case 4 ( #("32S") )
+				#case 5 ( #("32F") )
+				#case 6 ( #("64F") ),
+				")",
+				#if (!!$e.refcount)
+				(
+					#(
+						" [",
+						*$e.refcount,
+						#if (*$e.refcount == 1) (" ref") #else (" refs"),
+						"] "
+					)
+				)
+			)
+		)
+	)
+
+	children
+	(
+		#(
+			#if (!!$c.data)
+			(
+				#(
+					[continuous] : ($c.flags & 16384) == 16384,
+					[submatrix] : ($c.flags & 32768) == 32768,
+					[channels] : ((($c.flags & (511 << 3)) >> 3) + 1)
+				)
+			)
+			#else
+			(
+				#array (expr: 0, size: 0)
+			),
+
+			[raw members] : [$c,!],
+
+			#(
+				[size] : $c.cols * $c.rows,
+
+				#switch (((($c.flags & (511 << 3)) >> 3) + 1)) ; channels
+				#case 1 ; single channel
+				(
+					#switch ($c.flags & 7)
+					#case 0 ; 8U
+					(
+						#array
+						(
+							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 1 ; 8S
+					(
+						#array
+						(
+							expr: ((char*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 2 ; 16U
+					(
+						#array
+						(
+							expr: ((unsighed short*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 3 ; 16S
+					(
+						#array
+						(
+							expr: ((short*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 4 ; 32S
+					(
+						#array
+						(
+							expr: ((int*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 5 ; 32F
+					(
+						#array
+						(
+							expr: ((float*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 6 ; 64F
+					(
+						#array
+						(
+							expr: ((double*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#default
+					(
+						#array
+						(
+							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+				)
+				#case 2 ; two channels
+				(
+					#switch ($c.flags & 7)
+					#case 0 ; 8U
+					(
+						#array
+						(
+							expr: ((cv::Vec<unsigned char,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 1 ; 8S
+					(
+						#array
+						(
+							expr: ((cv::Vec<char,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 2 ; 16U
+					(
+						#array
+						(
+							expr: ((cv::Vec<unsigned short,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 3 ; 16S
+					(
+						#array
+						(
+							expr: ((cv::Vec<short,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 4 ; 32S
+					(
+						#array
+						(
+							expr: ((cv::Vec<int,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 5 ; 32F
+					(
+						#array
+						(
+							expr: ((cv::Vec<float,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 6 ; 64F
+					(
+						#array
+						(
+							expr: ((cv::Vec<double,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#default
+					(
+						#array
+						(
+							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+				)
+				#case 3 ; three channels
+				(
+					#switch ($c.flags & 7)
+					#case 0 ; 8U
+					(
+						#array
+						(
+							expr: ((cv::Vec<unsigned char,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 1 ; 8S
+					(
+						#array
+						(
+							expr: ((cv::Vec<char,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 2 ; 16U
+					(
+						#array
+						(
+							expr: ((cv::Vec<unsighed short,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 3 ; 16S
+					(
+						#array
+						(
+							expr: ((cv::Vec<short,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 4 ; 32S
+					(
+						#array
+						(
+							expr: ((cv::Vec<int,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 5 ; 32F
+					(
+						#array
+						(
+							expr: ((cv::Vec<float,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 6 ; 64F
+					(
+						#array
+						(
+							expr: ((cv::Vec<double,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#default
+					(
+						#array
+						(
+							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+				)
+				#case 4 ; four channels
+				(
+					#switch ($c.flags & 7)
+					#case 0 ; 8U
+					(
+						#array
+						(
+							expr: ((cv::Vec<unsigned char,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 1 ; 8S
+					(
+						#array
+						(
+							expr: ((cv::Vec<char,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 2 ; 16U
+					(
+						#array
+						(
+							expr: ((cv::Vec<unsigned short,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 3 ; 16S
+					(
+						#array
+						(
+							expr: ((cv::Vec<short,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 4 ; 32S
+					(
+						#array
+						(
+							expr: ((cv::Vec<int,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 5 ; 32F
+					(
+						#array
+						(
+							expr: ((cv::Vec<float,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#case 6 ; 64F
+					(
+						#array
+						(
+							expr: ((cv::Vec<double,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+					#default
+					(
+						#array
+						(
+							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							rank: $c.dims,
+							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+						)
+					)
+				)
+				#default
+				(
+					#array
+					(
+						expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+						rank: $c.dims,
+						size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
+					)
+				)
+			)
+		)
+	)
+}
+
 cv::Vec<float,*>|cv::Vec<double,*>|cv::Vec<long double,*> {
 	preview
 	(
