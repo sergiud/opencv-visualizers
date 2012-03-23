@@ -43,8 +43,8 @@ cv::Mat|cv::Mat_<*> {
 				#case 4 ( #("32S") )
 				#case 5 ( #("32F") )
 				#case 6 ( #("64F") ),
-                "C",
-                ((($c.flags & (511 << 3)) >> 3) + 1),
+				"C",
+				((($c.flags & (511 << 3)) >> 3) + 1),
 				")",
 				#if (!!$e.refcount)
 				(
@@ -68,7 +68,7 @@ cv::Mat|cv::Mat_<*> {
 					[continuous] : ($c.flags & 16384) == 16384,
 					[submatrix] : ($c.flags & 32768) == 32768,
 					[channels] : ((($c.flags & (511 << 3)) >> 3) + 1),
-                    [stride] : (size_t)$c.step.p[0],
+					[stride] : (size_t)$c.step.p[0],
 
 					#if ($c.dims > 0)
 					(
