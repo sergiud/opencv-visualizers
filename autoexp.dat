@@ -97,7 +97,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -106,7 +106,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((char*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((char*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -115,7 +115,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((unsighed short*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((unsighed short*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -124,7 +124,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((short*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((short*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -133,7 +133,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((int*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((int*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -142,7 +142,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((float*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((float*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -151,7 +151,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((double*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((double*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -160,7 +160,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -173,7 +173,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<unsigned char,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<unsigned char,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -182,7 +182,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<char,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<char,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -191,7 +191,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<unsigned short,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<unsigned short,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -200,7 +200,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<short,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<short,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -209,7 +209,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<int,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<int,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -218,7 +218,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<float,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<float,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -227,7 +227,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<double,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<double,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -236,7 +236,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -249,7 +249,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<unsigned char,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<unsigned char,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -258,7 +258,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<char,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<char,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -267,7 +267,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<unsighed short,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<unsighed short,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -276,7 +276,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<short,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<short,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -285,7 +285,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<int,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<int,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -294,7 +294,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<float,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<float,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -303,7 +303,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<double,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<double,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -312,7 +312,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -325,7 +325,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<unsigned char,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<unsigned char,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -334,7 +334,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<char,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<char,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -343,7 +343,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<unsigned short,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<unsigned short,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -352,7 +352,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<short,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<short,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -361,7 +361,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<int,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<int,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -370,7 +370,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<float,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<float,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -379,7 +379,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: ((cv::Vec<double,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: ((cv::Vec<double,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -388,7 +388,7 @@ cv::Mat|cv::Mat_<*> {
 						(
 							#array
 							(
-								expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+								expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 								rank: $c.dims,
 								size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 							)
@@ -398,7 +398,7 @@ cv::Mat|cv::Mat_<*> {
 					(
 						#array
 						(
-							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -472,7 +472,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -481,7 +481,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((char*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((char*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -490,7 +490,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((unsighed short*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((unsighed short*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -499,7 +499,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((short*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((short*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -508,7 +508,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((int*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((int*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -517,7 +517,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((float*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((float*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -526,7 +526,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((double*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((double*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -535,7 +535,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -548,7 +548,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<unsigned char,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<unsigned char,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -557,7 +557,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<char,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<char,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -566,7 +566,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<unsigned short,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<unsigned short,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -575,7 +575,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<short,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<short,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -584,7 +584,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<int,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<int,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -593,7 +593,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<float,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<float,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -602,7 +602,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<double,2>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<double,2>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -611,7 +611,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -624,7 +624,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<unsigned char,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<unsigned char,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -633,7 +633,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<char,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<char,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -642,7 +642,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<unsighed short,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<unsighed short,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -651,7 +651,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<short,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<short,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -660,7 +660,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<int,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<int,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -669,7 +669,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<float,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<float,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -678,7 +678,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<double,3>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<double,3>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -687,7 +687,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -700,7 +700,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<unsigned char,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<unsigned char,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -709,7 +709,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<char,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<char,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -718,7 +718,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<unsigned short,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<unsigned short,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -727,7 +727,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<short,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<short,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -736,7 +736,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<int,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<int,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -745,7 +745,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<float,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<float,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -754,7 +754,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: ((cv::Vec<double,4>*)$c.data)[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: ((cv::Vec<double,4>*)$c.data)[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -763,7 +763,7 @@ cv::gpu::GpuMat {
 					(
 						#array
 						(
-							expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+							expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 							rank: $c.dims,
 							size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 						)
@@ -773,7 +773,7 @@ cv::gpu::GpuMat {
 				(
 					#array
 					(
-						expr: $c.data[($i / $c.rows) + ($i - ($i / $c.rows) * $c.rows) * $c.cols],
+						expr: $c.data[($i % $c.rows) * ($c.step.p[0] / $c.step.p[1]) + ($i / $c.rows)],
 						rank: $c.dims,
 						size: ($r == 1) * $c.rows + ($r == 0) * $c.cols
 					)
