@@ -432,6 +432,8 @@ cv::gpu::GpuMat {
 				#case 4 ( #("32S") )
 				#case 5 ( #("32F") )
 				#case 6 ( #("64F") ),
+				"C",
+				((($c.flags & (511 << 3)) >> 3) + 1),
 				")",
 				#if (!!$e.refcount)
 				(
