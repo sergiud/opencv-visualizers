@@ -952,4 +952,3 @@ cv::MatConstIterator {
 	)
 }
 
-; TODO: SparseMat
