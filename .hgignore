@@ -8,3 +8,7 @@ syntax: glob
 *.wixpdb
 *~
 build*
+opencviz/bin
+opencviz/obj
+opencviz/*.user
+opencviz/*.suo

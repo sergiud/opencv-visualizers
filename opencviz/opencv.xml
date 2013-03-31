@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright (c) 2012 Sergiu Dotenco
+  Copyright (c) 2013 Sergiu Dotenco
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -21,54 +21,34 @@
   THE SOFTWARE.
 -->
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <UIVisualizer ServiceId="{A3571322-A2D7-42CD-AF5B-EBBCACA22C3A}" Id="1" MenuName="OpenCV Visualizer" />
+  <Type Name="cv::Mat">
+    <AlternativeType Name="cv::Mat_&lt;*&gt;" />
+    <UIVisualizer ServiceId="{A3571322-A2D7-42CD-AF5B-EBBCACA22C3A}" Id="1" />
+  </Type>
   <Type Name="cv::Mat">
     <DisplayString Condition="data == 0">empty</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount == 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount == 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount == 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount == 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount == 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount == 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount == 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount != 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount != 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount != 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount != 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount != 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount != 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount != 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount == 1">{rows}×{cols} (8UC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount == 1">{rows}×{cols} (8SC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount == 1">{rows}×{cols} (16UC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount == 1">{rows}×{cols} (16SC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount == 1">{rows}×{cols} (32SC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount == 1">{rows}×{cols} (32FC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount == 1">{rows}×{cols} (64FC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} ref]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount != 1">{rows}×{cols} (8UC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} refs]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount != 1">{rows}×{cols} (8SC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} refs]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount != 1">{rows}×{cols} (16UC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} refs]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount != 1">{rows}×{cols} (16SC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} refs]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount != 1">{rows}×{cols} (32SC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} refs]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount != 1">{rows}×{cols} (32FC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} refs]</DisplayString>
+    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount != 1">{rows}×{cols} (64FC{(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)}) [{*refcount} refs]</DisplayString>
     <Expand>
       <Item Name="[continous]">(flags &amp; 16384) == 16384</Item>
       <Item Name="[submatrix]">(flags &amp; 32768) == 32768</Item>
       <Item Name="[channels]">(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &gt; 0">dims</Item>
       <Item Name="[element size]" Condition="step.p[dims-1] &lt; 0">0</Item>
-      <Item Name="[data]">data</Item>
-    </Expand>
-  </Type>
-  <Type Name="cv::Mat_&lt;*&gt;">
-    <DisplayString Condition="data == 0">empty</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount == 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount == 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount == 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount == 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount == 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount == 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount == 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 0 &amp;&amp; *refcount != 1">{cols}×{rows} (8U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 1 &amp;&amp; *refcount != 1">{cols}×{rows} (8S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 2 &amp;&amp; *refcount != 1">{cols}×{rows} (16U) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 3 &amp;&amp; *refcount != 1">{cols}×{rows} (16S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 4 &amp;&amp; *refcount != 1">{cols}×{rows} (32S) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 5 &amp;&amp; *refcount != 1">{cols}×{rows} (32F) [{*refcount} ref]</DisplayString>
-    <DisplayString Condition="data != 0 &amp;&amp; (flags &amp; 7) == 6 &amp;&amp; *refcount != 1">{cols}×{rows} (64F) [{*refcount} ref]</DisplayString>
-    <Expand>
-      <Item Name="[continous]">(flags &amp; 16384) == 16384</Item>
-      <Item Name="[submatrix]">(flags &amp; 32768) == 32768</Item>
-      <Item Name="[channels]">(((flags &amp; (511 &lt;&lt; 3)) &gt;&gt; 3) + 1)</Item>
-      <Item Name="[element size]" Condition="step.p[dims-1] &gt; 0">dims</Item>
-      <Item Name="[element size]" Condition="step.p[dims-1] &lt; 0">0</Item>
-      <Item Name="[data]">($T1*)data</Item>
+      <Item Name="[stride]">(size_t)step.p[0]</Item>
     </Expand>
   </Type>
   <Type Name="cv::Point_&lt;*&gt;">
@@ -173,5 +153,4 @@
       <Item Name="[ptr]">ptr</Item>
     </Expand>
   </Type>
-  <!--TODO: SparseMat-->
 </AutoVisualizer>
