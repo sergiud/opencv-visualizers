@@ -27,12 +27,11 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Debugger.Interop;
 
 namespace Caustic {
-
-    internal class MatVisualizerService : IVsCppDebugUIVisualizer, IMatVisualizerService
-    {
-
+    class MatVisualizerService : IVsCppDebugUIVisualizer, IMatVisualizerService {
         public int DisplayValue(uint ownerHwnd, uint visualizerId, IDebugProperty3 debugProperty)
         {
             var propertyInfo = new DEBUG_PROPERTY_INFO[1];
@@ -57,7 +56,7 @@ namespace Caustic {
             var elementSizeInfo = GetChildPropertyAt(1,
                 GetChildPropertyAt(1, GetChildPropertyAt(11, baseNode)));
 
-            var flags = ulong.Parse(flagsInfo.bstrValue, NumberStyles.Any,
+            var flags = int.Parse(flagsInfo.bstrValue, NumberStyles.Any,
                 CultureInfo.InvariantCulture);
             var rows = int.Parse(rowsInfo.bstrValue, NumberStyles.Any, CultureInfo.InvariantCulture);
             var cols = int.Parse(colsInfo.bstrValue, NumberStyles.Any, CultureInfo.InvariantCulture);
@@ -88,7 +87,7 @@ namespace Caustic {
             Debug.Assert(hr == VSConstants.S_OK, "IDebugMemoryBytes.ReadAt failed");
 
             var channels = (((flags & (511 << 3)) >> 3) + 1);
-            var image = CreateBitmapFromMat(data, rows, cols, stride, (int)channels, elementSize);
+            var image = CreateBitmapFromMat(data, rows, cols, stride, channels, elementSize, flags);
 
             var form = new PreviewForm {
                 Parent = Control.FromHandle((IntPtr)ownerHwnd),
@@ -101,11 +100,28 @@ namespace Caustic {
         }
 
         private static Bitmap CreateBitmapFromMat(byte[] data, int rows, int cols, int stride,
-                                                  int channels, int elementSize)
+                                                  int channels, int elementSize, int flags)
         {
-            // TODO: Add support for gray scale cv::Mat, short, int, float and double
-            if (channels == 3 && false) {
+            if (channels == 1 && (flags & 7) == 0) {
+                // 8UC1
+                var newStride = cols * 3;
+                var rgb = new byte[rows * newStride];
 
+                for (var x = 0; x < cols; ++x) {
+                    for (var y = 0; y < rows; ++y) {
+                        var tmp = data[y * stride + x * elementSize];
+                        rgb[y * newStride + x * 3] = tmp;
+                        rgb[y * newStride + x * 3 + 1] = tmp;
+                        rgb[y * newStride + x * 3 + 2] = tmp;
+                    }
+                }
+
+                stride = newStride;
+                data = rgb;
+            }
+
+            // TODO: Add support short, int, float and double
+            if (channels == 3 && false) {
                 // Assume BGR: ensure RGB ordering by swapping the R and B channels
                 for (var x = 0; x < cols; ++x) {
                     for (var y = 0; y < rows; ++y) {

@@ -34,6 +34,7 @@
     <MoreInfo>https://bitbucket.org/sergiu/opencv-visualizers</MoreInfo>
     <License>COPYING</License>
     <Icon>Resources\OpenCV.ico</Icon>
+    <PreviewImage>Resources\logo.png</PreviewImage>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Pro"

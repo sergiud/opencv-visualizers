@@ -39,7 +39,8 @@ namespace Caustic {
                 pictureBox.Image = value;
 
                 if (value != null) {
-                    ClientSize = new Size(value.Width, value.Height + toolStrip1.Height + statusStrip1.Height);
+                    ClientSize = new Size(value.Width,
+                        value.Height + toolStrip1.Height + statusStrip1.Height);
                     Text = string.Format(Resources.FormTitleFormat, value.Width, value.Height);
                 }
             }

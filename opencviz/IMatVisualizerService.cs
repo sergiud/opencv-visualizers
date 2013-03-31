@@ -21,7 +21,6 @@
 using System.Runtime.InteropServices;
 
 namespace Caustic {
-
     /// <summary>
     ///     Vector visualizer service exposed by the package
     /// </summary>
