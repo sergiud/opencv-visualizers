@@ -18,15 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using Caustic.Properties;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Caustic.Properties;
 
 namespace Caustic {
-
     public partial class PreviewForm : Form {
-
         public PreviewForm()
         {
             InitializeComponent();
@@ -43,6 +41,14 @@ namespace Caustic {
                         value.Height + toolStrip1.Height + statusStrip1.Height);
                     Text = string.Format(Resources.FormTitleFormat, value.Width, value.Height);
                 }
+            }
+        }
+
+        public string FileName
+        {
+            set
+            {
+                saveFileDialog1.FileName = value;
             }
         }
 

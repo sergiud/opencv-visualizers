@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Debugger.Interop;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -41,6 +39,7 @@ namespace Caustic {
             Debug.Assert(hr == VSConstants.S_OK, "IDebugProperty3.GetPropertyInfo failed");
 
             var baseNode = propertyInfo[0];
+            var suggestedFileName = baseNode.bstrName;
 
             if (baseNode.bstrType != null && baseNode.bstrType.StartsWith("cv::Mat_")) // cv::Mat_<>
                 baseNode = GetChildPropertyAt(0, baseNode);
@@ -91,7 +90,8 @@ namespace Caustic {
 
             var form = new PreviewForm {
                 Parent = Control.FromHandle((IntPtr)ownerHwnd),
-                Image = image
+                Image = image,
+                FileName = suggestedFileName
             };
 
             form.ShowDialog();
