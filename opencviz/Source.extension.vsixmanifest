@@ -6,7 +6,7 @@
                  xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Id="opencviz.A3571322-A2D7-42CD-AF5B-EBBCACA22C3A"
-              Version="0.6"
+              Version="0.6.1"
               Language="en-US"
               Publisher="Sergiu Dotenco" />
     <DisplayName>OpenCV Debugger Visualizers</DisplayName>

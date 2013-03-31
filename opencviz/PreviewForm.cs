@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Caustic.Properties;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Caustic.Properties;
 
 namespace Caustic {
+
     public partial class PreviewForm : Form {
+
         public PreviewForm()
         {
             InitializeComponent();
@@ -17,7 +19,7 @@ namespace Caustic {
                 pictureBox.Image = value;
 
                 if (value != null) {
-                    ClientSize = new Size(value.Width, value.Height);
+                    ClientSize = new Size(value.Width, value.Height + toolStrip1.Height + statusStrip1.Height);
                     Text = string.Format(Resources.FormTitleFormat, value.Width, value.Height);
                 }
             }
