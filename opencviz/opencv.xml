@@ -23,7 +23,9 @@
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
   <UIVisualizer ServiceId="{A3571322-A2D7-42CD-AF5B-EBBCACA22C3A}" Id="1" MenuName="OpenCV Visualizer" />
   <Type Name="cv::Mat">
+    <AlternativeType Name="const cv::Mat" />
     <AlternativeType Name="cv::Mat_&lt;*&gt;" />
+    <AlternativeType Name="const cv::Mat_&lt;*&gt;" />
     <UIVisualizer ServiceId="{A3571322-A2D7-42CD-AF5B-EBBCACA22C3A}" Id="1" />
   </Type>
   <Type Name="cv::Mat">
