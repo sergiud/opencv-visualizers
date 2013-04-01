@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2013 Sergiu Dotenco
+// Copyright (c) 2013 Sergiu Dotenco
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace Caustic {
+namespace Caustic.Visualizers {
     /// <summary>
     ///     Vector visualizer service exposed by the package
     /// </summary>

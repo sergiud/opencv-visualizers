@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2013 Sergiu Dotenco
+// Copyright (c) 2013 Sergiu Dotenco
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@ using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace Caustic {
+namespace Caustic.Visualizers {
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [ProvideService(typeof(IMatVisualizerService), ServiceName = "MatVisualizerService")]
     [InstalledProductRegistration("OpenCV Matrix Visualizer", "OpenCV Matrix Visualizer", "1.0")]

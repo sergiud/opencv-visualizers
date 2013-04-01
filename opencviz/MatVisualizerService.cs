@@ -25,11 +25,12 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Caustic.Visualizers.Forms;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Debugger.Interop;
 
-namespace Caustic {
-    class MatVisualizerService : IVsCppDebugUIVisualizer, IMatVisualizerService {
+namespace Caustic.Visualizers {
+    public class MatVisualizerService : IVsCppDebugUIVisualizer, IMatVisualizerService {
         public int DisplayValue(uint ownerHwnd, uint visualizerId, IDebugProperty3 debugProperty)
         {
             var propertyInfo = new DEBUG_PROPERTY_INFO[1];

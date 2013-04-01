@@ -1,4 +1,4 @@
-﻿namespace Caustic
+namespace Caustic.Visualizers.Forms
 {
     partial class PreviewForm
     {
@@ -54,35 +54,35 @@
             // 
             // toolStrip1
             // 
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripButton,
             this.copyToolStripButton,
             this.toolStripComboBox1});
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Name = "toolStrip1";
             // 
             // saveToolStripButton
             // 
-            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.saveToolStripButton, "saveToolStripButton");
+            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // copyToolStripButton
             // 
-            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.copyToolStripButton, "copyToolStripButton");
+            this.copyToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.copyToolStripButton.Name = "copyToolStripButton";
             this.copyToolStripButton.Click += new System.EventHandler(this.copyToolStripButton_Click);
             // 
             // toolStripComboBox1
             // 
+            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox1.Items.AddRange(new object[] {
             resources.GetString("toolStripComboBox1.Items"),
             resources.GetString("toolStripComboBox1.Items1")});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
-            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             // 
             // saveFileDialog1
             // 

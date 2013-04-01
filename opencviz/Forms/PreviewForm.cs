@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2013 Sergiu Dotenco
+// Copyright (c) 2013 Sergiu Dotenco
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,9 +21,9 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Caustic.Properties;
+using Caustic.Visualizers.Properties;
 
-namespace Caustic {
+namespace Caustic.Visualizers.Forms {
     public partial class PreviewForm : Form {
         public PreviewForm()
         {
