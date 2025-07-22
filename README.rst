@@ -1,7 +1,7 @@
 OpenCV debugger visualizers for Visual Studio
 =============================================
 
-:Author: Sergiu Dotenco
+:Author: Sergiu Deitsch
 :Date:   March 13, 2012
 
 Getting Started

@@ -7,7 +7,7 @@
            Name="$(var.ProductName)"
            Language="1033"
            Version="$(var.Version)"
-           Manufacturer="Sergiu Dotenco"
+           Manufacturer="Sergiu Deitsch"
            Codepage="65001"
            UpgradeCode="{067ED81D-2536-498A-B4A0-D7CF14014A10}">
     <Package Description="$(var.ProductName) Installer"

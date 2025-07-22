@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2013 Sergiu Dotenco
+// Copyright (c) 2013 Sergiu Deitsch
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,9 +28,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("OpenCV Debugger Visualizers")]
 [assembly: AssemblyDescription("Provides debugger visualization for fundamental OpenCV types.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sergiu Dotenco")]
+[assembly: AssemblyCompany("Sergiu Deitsch")]
 [assembly: AssemblyProduct("Caustic.Properties")]
-[assembly: AssemblyCopyright("Copyright © Sergiu Dotenco 2013. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © Sergiu Deitsch 2013. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

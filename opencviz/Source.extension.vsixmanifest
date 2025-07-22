@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"
       encoding="utf-8"?>
 <!--
-  Copyright (c) 2013 Sergiu Dotenco
+  Copyright (c) 2013 Sergiu Deitsch
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
     <Identity Id="opencviz.A3571322-A2D7-42CD-AF5B-EBBCACA22C3A"
               Version="0.7"
               Language="en-US"
-              Publisher="Sergiu Dotenco" />
+              Publisher="Sergiu Deitsch" />
     <DisplayName>OpenCV Debugger Visualizers</DisplayName>
     <Description xml:space="preserve">Provides debugger visualization for fundamental OpenCV types.</Description>
     <MoreInfo>https://bitbucket.org/sergiu/opencv-visualizers</MoreInfo>
